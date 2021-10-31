@@ -1,7 +1,6 @@
 package com.example.bookstore.entities;
 
-import com.example.bookstore.entities.Book;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

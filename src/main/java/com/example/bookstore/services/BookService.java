@@ -1,16 +1,9 @@
 package com.example.bookstore.services;
 
-import java.math.BigInteger;
-import java.util.Date;
 
 import com.example.bookstore.entities.Book;
-import com.example.bookstore.entities.Token;
-import com.example.bookstore.entities.User;
-import com.example.bookstore.helper.ValidateHelper;
 import com.example.bookstore.models.BookRequest;
-import com.example.bookstore.models.UserRequest;
 import com.example.bookstore.repository.BookRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +19,7 @@ public class BookService {
         if (byName != null) {
             return false;
         }
-        Book book = new Book(bookRequest.getName(),bookRequest.getAuthor(),bookRequest.getYear_of_publication(),bookRequest.getCountry(),bookRequest.getGenres(),bookRequest.getCost());
+        Book book = new Book(bookRequest.getName(),bookRequest.getDescription(),bookRequest.getAuthor(),bookRequest.getYear_of_publication(),bookRequest.getCountry(),bookRequest.getGenres(),bookRequest.getCost());
         bookRepository.save(book);
         return true;
 
@@ -59,6 +52,11 @@ public class BookService {
     public void updateYear(String name, int year_of_publication) {
         Book book = bookRepository.findByName(name);
         book.setYear_of_publication(year_of_publication);
+        bookRepository.save(book);
+    }
+    public void updateDescription(String name, String description) {
+        Book book = bookRepository.findByName(name);
+        book.setDescription(description);
         bookRepository.save(book);
     }
     public Book getBook(String name) {

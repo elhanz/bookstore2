@@ -1,9 +1,7 @@
 package com.example.bookstore.controllers;
 
 import com.example.bookstore.entities.Book;
-import com.example.bookstore.entities.User;
 import com.example.bookstore.models.BookRequest;
-import com.example.bookstore.models.UserRequest;
 import com.example.bookstore.services.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 
 @RestController
 @RequestMapping("/book")
@@ -62,7 +59,11 @@ public class BookController {
         bookService.updateYear(name, year_of_publication);
         return ResponseEntity.ok("Year is Updated");
     }
-
+    @PostMapping("/updateDescription")
+    public ResponseEntity updateDescription(@RequestParam String name, String description ) {
+        bookService.updateDescription(name, description);
+        return ResponseEntity.ok("Description is Updated");
+    }
     @GetMapping("/getBook")
     public ResponseEntity getUserByName(@RequestParam String name) {
        Book bookRequest = bookService.getBook(name);
