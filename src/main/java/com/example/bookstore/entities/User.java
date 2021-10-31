@@ -26,7 +26,7 @@ public class User {
     @OneToMany
     private List<Book> books;
 
-    public User( final String nickname, final String email,final String password) {
+    public User( String nickname,  String email, String password) {
         this.nickname = nickname;
         this.email = email;
         this.password=password;

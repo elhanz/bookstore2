@@ -7,7 +7,12 @@ import java.util.Date;
 
 @Data
 public class BookRequest {
+
     private String name;
-    private BigInteger cost;
-    private Date date;
+    private String author;
+    private int year_of_publication;
+    private String country;
+    private String genres;
+    private double cost;
+
 }

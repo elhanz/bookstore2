@@ -24,19 +24,17 @@ public class Book {
     private Long id;
     private String name;
     private String author;
-    private String year_of_publication;
+    private int year_of_publication;
     private String country;
     private String genres;
-    private BigInteger cost;
+    private double cost;
 
-
-    public Book(BookRequest bookRequest) {
-        this.name = bookRequest.getName();
-        this.cost = bookRequest.getCost();
-    }
-
-    public Book(String name, BigInteger cost) {
+    public Book(String name, String author, int year_of_publication, String country, String genres, double cost) {
         this.name = name;
+        this.author = author;
+        this.year_of_publication = year_of_publication;
+        this.country = country;
+        this.genres = genres;
         this.cost = cost;
     }
 }

@@ -19,11 +19,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-//    @PostMapping
-//    public ResponseEntity create(@RequestBody BookRequest book) {
-//        bookService.create(book);
-//        return ResponseEntity.ok(" ");
-//    }
+
     @PostMapping("/createBook")
     public ResponseEntity create(@RequestBody BookRequest bookRequest) {
         boolean result = bookService.saveBook(bookRequest);
@@ -42,10 +38,31 @@ public class BookController {
     }
 
     @PostMapping("/updateCost")
-    public ResponseEntity updateCost(@RequestParam String name, BigInteger cost) {
-        bookService.updateBook(name, cost);
-        return ResponseEntity.ok("Updated");
+    public ResponseEntity updateCost(@RequestParam String name, double cost) {
+        bookService.updateCost(name, cost);
+        return ResponseEntity.ok("Cost is Updated");
     }
+    @PostMapping("/updateGenre")
+    public ResponseEntity updateGenre(@RequestParam String name, String genre) {
+        bookService.updateGenre(name, genre);
+        return ResponseEntity.ok("Genre is Updated");
+    }
+    @PostMapping("/updateAuthor")
+    public ResponseEntity updateAuthor(@RequestParam String name, String author) {
+        bookService.updateAuthor(name, author);
+        return ResponseEntity.ok("Author is Updated");
+    }
+    @PostMapping("/updateCountry")
+    public ResponseEntity updateCountry(@RequestParam String name, String country) {
+        bookService.updateCountry(name, country);
+        return ResponseEntity.ok("Country is Updated");
+    }
+    @PostMapping("/updateYear")
+    public ResponseEntity updateYear(@RequestParam String name, int year_of_publication ) {
+        bookService.updateYear(name, year_of_publication);
+        return ResponseEntity.ok("Year is Updated");
+    }
+
     @GetMapping("/getBook")
     public ResponseEntity getUserByName(@RequestParam String name) {
        Book bookRequest = bookService.getBook(name);
@@ -54,5 +71,6 @@ public class BookController {
         }
         return ResponseEntity.ok(bookRequest);
     }
+
 }
 

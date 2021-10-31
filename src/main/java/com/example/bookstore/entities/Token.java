@@ -23,9 +23,7 @@ public class Token {
     private Long id;
     private String token;
 
-    public Token(String token, String email) {
-
+    public Token(String token) {
         this.token=token;
-
     }
 }

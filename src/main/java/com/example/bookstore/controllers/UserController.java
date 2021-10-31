@@ -1,10 +1,11 @@
 package com.example.bookstore.controllers;
 
-import com.example.bookstore.dto.LoginRequest;
+
 import com.example.bookstore.entities.User;
 import com.example.bookstore.helper.TokenHelper;
 import com.example.bookstore.helper.ValidateHelper;
 import com.example.bookstore.models.AddBookRequest;
+import com.example.bookstore.models.LoginRequest;
 import com.example.bookstore.models.UserRequest;
 import com.example.bookstore.services.UserService;
 
@@ -56,7 +57,7 @@ public class UserController {
     public ResponseEntity login(@RequestBody LoginRequest loginRequest) {
         if (userService.login(loginRequest)) {
             String token = TokenHelper.getToken(loginRequest.getEmail());
-            userService.addToken(token, loginRequest.getEmail());
+            userService.addToken(token);
             return ResponseEntity.ok(token);
         }
         return ResponseEntity.badRequest().body("incorrect email or password");
@@ -74,7 +75,7 @@ public class UserController {
 
     @GetMapping("/delete")
     public ResponseEntity deleteUser(@RequestParam String token) {
-        User user = userService.getUsersByToken(token);
+
         if (userService.deleteUser(token) ) {
 
             return ResponseEntity.badRequest().body("user deleted");
@@ -93,6 +94,4 @@ public class UserController {
         userService.updatePassword(token, password);
         return ResponseEntity.ok("Updated");
     }
-
-
 }

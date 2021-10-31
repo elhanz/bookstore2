@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.example.bookstore.dto.LoginRequest;
+
 import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Token;
 import com.example.bookstore.entities.User;
+import com.example.bookstore.helper.TokenHelper;
 import com.example.bookstore.helper.ValidateHelper;
+import com.example.bookstore.models.LoginRequest;
 import com.example.bookstore.models.UserRequest;
 import com.example.bookstore.repository.BookRepository;
 import com.example.bookstore.repository.TokenRepository;
@@ -44,7 +46,7 @@ public class UserService {
 
     public boolean deleteUser(String token) {
         Token token1 = tokenRepository.findByToken(token);
-        User user = userRepository.findByEmail(token1.getEmail());
+        User user = userRepository.findByEmail(TokenHelper.getEmailByToken(token));
         userRepository.delete(user);
         tokenRepository.delete(token1);
         return true;
@@ -66,6 +68,7 @@ public class UserService {
         if (user == null) {
             return false;
         }
+
         List<Book> books = new ArrayList<>();
         bookIds.forEach(id -> bookRepository.findById(id.longValue()).ifPresent(p -> books.add(p)));
         user.setBooks(books);
@@ -73,8 +76,8 @@ public class UserService {
         return true;
     }
 
-    public void addToken(String token, String email) {
-        Token token1 = new Token(token, email);
+    public void addToken(String token) {
+        Token token1 = new Token(token);
         tokenRepository.save(token1);
     }
 
@@ -85,15 +88,13 @@ public class UserService {
     }
 
     public void updatePassword(String token, String password) {
-        Token token1 = tokenRepository.findByToken(token);
-        User user = userRepository.findByEmail(token1.getToken());
+        User user = userRepository.findByEmail(TokenHelper.getEmailByToken(token));
         user.setPassword(password);
         userRepository.save(user);
     }
 
     public void updateNickname(String token, String nickname) {
-        Token token1 = tokenRepository.findByToken(token);
-        User user = userRepository.findByEmail(token1.getToken());
+        User user = userRepository.findByEmail(TokenHelper.getEmailByToken(token));
         user.setNickname(nickname);
         userRepository.save(user);
     }
@@ -104,6 +105,5 @@ public class UserService {
 
     public User getUsersByToken(String token) {
         return userRepository.findByEmail(tokenRepository.findByToken(token).getToken());
-
     }
 }
