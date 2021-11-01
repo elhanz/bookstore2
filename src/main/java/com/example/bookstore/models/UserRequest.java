@@ -1,9 +1,12 @@
 package com.example.bookstore.models;
 
-import com.example.bookstore.Roles.Role;
+
 import lombok.Data;
 import lombok.ToString;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,5 +17,4 @@ public class UserRequest {
     private String email;
     private String password;
     private String nickname;
-private Collection <Role> roles =new ArrayList<>();
 }
